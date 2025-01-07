@@ -24,7 +24,7 @@ BiocManager::install("ggtree")
 BiocManager::install("S4Vectors")
 ```
 
-## Data Visualisation Shortcuts (By Rohit Satyam)
+# Data Visualisation Shortcuts (By Rohit Satyam)
 ### A. Daily purpose Graphs using Online services
 In this section, we will discuss about some online servers given below and understand different chart types and decision on which we should use on which kind of data. We will also discuss about the Rstudio, its features and plugins at the end.
 
@@ -68,7 +68,7 @@ Here we will discuss the resources you can use to make scientific diagrams when 
 - Reactome Icon library: https://reactome.org/icon-lib 
 
 
-### Choice of Colors
+### D. Choice of Colors
 Finally we will cover about how to choose proper color palette for visualization in R or using online server and A chrome extension ColorPic Eyedropper whose link is given below.
 - ggsci: R package to use Journal specific color palette: https://cran.r-project.org/web/packages/ggsci/vignettes/ggsci.html
 - Color palette by Adobe: https://color.adobe.com/
@@ -82,5 +82,5 @@ MasterClass: https://visualisingdata.com/
 https://ccsb.scripps.edu/cellpaint/
 https://github.com/poncest/SWDchallenge
 
-## Plot Manipulation in Adobe Illustrator (By Amit K Subudhi)
+# Plot Manipulation in Adobe Illustrator (By Amit K Subudhi)
 
