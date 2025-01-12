@@ -1,6 +1,6 @@
 # PGL-Data-Visualization-Course
 
-This is the repository that holds necessary code and documentation required to learn data visualization inside and outside R environment. 
+This is the repository that holds necessary code and documentation required to learn data visualization inside and outside R environment. You should also familiarize yourself with the basics of R/Rstudio from the [following lecture](https://www.youtube.com/watch?v=dQe3Z7hRG1s) or my personal favourite DataCamp videos [here](https://www.youtube.com/watch?v=gzXsjmhG_VI&list=PLFOq4OXbrQTB7Am7YBDBw02wtfuSRQGwN) (but this doesn't contain the Rstudio as they code in their own webbased Rstudio like environment).
 
 # Prepare R environment
 Kindly install the following packages first. If you don't have R or R-Studio download it from here: https://posit.co/download/rstudio-desktop/
