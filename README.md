@@ -6,22 +6,23 @@ This is the repository that holds necessary code and documentation required to l
 Kindly install the following packages first. If you don't have R or R-Studio download it from here: https://posit.co/download/rstudio-desktop/
 
 ```r
-install.packages(c("devtools","remotes","ggpubr","cowplot","ggplot2","ggsci"))
+if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager",repos='http://cran.us.r-project.org',dependencies = TRUE)
+
+## Install Biocmanager packages
+if (!suppressMessages(require("Biostrings", quietly = TRUE,warn.conflicts = FALSE))) BiocManager::install(c('Biostrings',"S4Vectors","ggtree",))
+
+## Install CRAN packages
+packages <- c('dplyr',"BiocManager",'stringr','pacman','tidyr','ggplot2','R3port','ggpubr','plotly','data.table','argparse','ggsci','htmlwidgets','egg',
+'remotes','ggplot2',"ggvenn","ggVennDiagram","grafify","esquisse","ggeasy")
+install.packages(setdiff(packages, rownames(installed.packages())), repos='http://cran.us.r-project.org',dependencies = TRUE)
+
+
 devtools::install_github("majkamichal/easyPlot")
 devtools::install_github("gertstulp/ggplotgui")
 remotes::install_github("giocomai/ganttrify")
 remotes::install_github("feddelegrand7/ddplot")
 devtools::install_github("alastairrushworth/inspectdf")
-install.packages("ggvenn") 
-install.packages("ggVennDiagram")
-install.packages("grafify")
-install.packages("esquisse")
-install.packages("ggeasy")
 remotes::install_gitlab("hrbrmstr/hrbrthemes")
-if (!require("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-BiocManager::install("ggtree")
-BiocManager::install("S4Vectors")
 ```
 
 # Data Visualisation Shortcuts (By Rohit Satyam)
