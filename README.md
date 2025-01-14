@@ -9,7 +9,7 @@ Kindly install the following packages first. If you don't have R or R-Studio dow
 if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager",repos='http://cran.us.r-project.org',dependencies = TRUE)
 
 ## Install Biocmanager packages
-if (!suppressMessages(require("Biostrings", quietly = TRUE,warn.conflicts = FALSE))) BiocManager::install(c('Biostrings',"S4Vectors","ggtree",))
+if (!suppressMessages(require("Biostrings", quietly = TRUE,warn.conflicts = FALSE))) BiocManager::install(c('Biostrings',"S4Vectors","ggtree"))
 
 ## Install CRAN packages
 packages <- c('dplyr',"BiocManager",'stringr','pacman','tidyr','ggplot2','R3port','ggpubr','plotly','data.table','argparse','ggsci','htmlwidgets','egg',
