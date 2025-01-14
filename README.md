@@ -13,7 +13,7 @@ if (!suppressMessages(require("Biostrings", quietly = TRUE,warn.conflicts = FALS
 
 ## Install CRAN packages
 packages <- c('dplyr',"BiocManager",'stringr','pacman','tidyr','ggplot2','R3port','ggpubr','plotly','data.table','argparse','ggsci','htmlwidgets','egg',
-'remotes','ggplot2',"ggvenn","ggVennDiagram","grafify","esquisse","ggeasy")
+'remotes','ggplot2',"ggvenn","ggVennDiagram","grafify","esquisse","ggeasy","shinythemes")
 install.packages(setdiff(packages, rownames(installed.packages())), repos='http://cran.us.r-project.org',dependencies = TRUE)
 
 
