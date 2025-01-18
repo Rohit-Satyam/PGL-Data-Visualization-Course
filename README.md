@@ -49,6 +49,8 @@ We will then discuss some easy to use R package that have been build upon ggplot
 - grafify: https://grafify-vignettes.netlify.app/two_vars 
 - esquisse: https://dreamrs.github.io/esquisse/ 
 - ggeasy: https://jonocarroll.github.io/ggeasy/
+- gganatogram: https://r-charts.com/miscellaneous/gganatogram/
+- All ggplot related resources: https://github.com/erikgahner/awesome-ggplot2
 - Hrbrthemes: https://github.com/hrbrmstr/hrbrthemes
 - ggtree (Brief introduction): https://bioconductor.org/packages/release/bioc/vignettes/ggtree/inst/doc/ggtree.html
 - Cowplot and ggsave: to save high quality images: https://cran.r-project.org/web/packages/cowplot/vignettes/introduction.html
