@@ -35,6 +35,7 @@ In this section, we will discuss about some online servers given below and under
 - Make Sankey plots using [SankeyMatic](https://sankeymatic.com/)  
 - UpSet plots using [intervene](https://intervene.shinyapps.io/intervene/) or [upsetr](https://gehlenborglab.shinyapps.io/upsetr/)
 - (not included, only for my own reference) Publication-ready NN-architecture schematics.: https://alexlenail.me/NN-SVG/
+- Online resource for multiple data visualisations [PLOTORG](https://hiplot.cn/basic)
 
 ### B. Daily purpose Graphs using RStudio
 We will then discuss some easy to use R package that have been build upon ggplot2 package to make visualization life hassel free. Often the combinations of 2 or more of these packages are used by us to make plots for your paper. So I have chose these easy ones.
