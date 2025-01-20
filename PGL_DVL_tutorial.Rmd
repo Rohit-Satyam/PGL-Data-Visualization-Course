@@ -1,0 +1,267 @@
+---
+title: "PGL Data Visualization Tutorial"
+author: "Rohit Satyam"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction: 
+Here we will discuss how to install packages briefly and various sources where they are present. We will also discuss how to spot their documentation and use them
+
+## Fantastic packages and where to find them.
+
+Packages in R are hosted either at CRAN repository (Comprehensive R Archive Network) or Bioconductor. The CRAN is a general purpose repository while Bioconductor focuses on software tailored for genomic analysis. For more information, refer to OSCA book [here](https://bioconductor.org/books/3.12/OSCA/learning-r-and-more.html). If you download package from CRAN, you use `install.packages` function, but to download from Bioconductor, you use `install` function as used below.
+
+Some people are too lazy to submit their code to CRAN or write the documentation or their package is too large in size and they can't submit it to either of the repository. Such packages are often made available on github or gitlab and can be installed using  `remotes::install_gitlab` or `devtools::install_github` function. For example, `feddelegrand7/ddplot` means a guy named `feddelegrand7` has an R package in their repository `ddplot`.
+
+If the package is archived (i.e. the person who made it initially does not maintain it anymore) and you wanna install it, look for it's `tar.gz` file.
+
+```{r, eval=FALSE}
+if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager",repos='http://cran.us.r-project.org',dependencies = TRUE)
+
+## Install Biocmanager packages
+if (!suppressMessages(require("Biostrings", quietly = TRUE,warn.conflicts = FALSE))) BiocManager::install(c('Biostrings',"S4Vectors","ggtree",))
+
+## Install CRAN packages
+packages <- c('dplyr',"BiocManager",'stringr','pacman','tidyr','ggplot2','R3port','ggpubr','plotly','data.table','argparse','ggsci','htmlwidgets','egg','remotes','ggplot2',"ggvenn","ggVennDiagram","grafify","esquisse","ggeasy")
+install.packages(setdiff(packages, rownames(installed.packages())), repos='http://cran.us.r-project.org',dependencies = TRUE)
+
+
+devtools::install_github("majkamichal/easyPlot")
+devtools::install_github("gertstulp/ggplotgui")
+remotes::install_github("giocomai/ganttrify")
+remotes::install_github("feddelegrand7/ddplot")
+devtools::install_github("alastairrushworth/inspectdf")
+remotes::install_gitlab("hrbrmstr/hrbrthemes")
+
+#https://github.com/hms-dbmi/UpSetR/releases/tag/v1.4.0
+#https://cran.r-project.org/web/packages/ddplot/index.html
+```
+
+## R Vignettes and chambers of secrets
+
+R packages often come with documentation called "Vignettes". It's usually a nightmare to spot it, but once you find it, the secrets to do things quickyl in R and other reward follows. It tells you how to efficiently use them. But not all packages come with documentation so choose wisely if you don't wish to scratch your head or bother your bioinformatic friend. 
+
+```{r}
+## To search for documentation within Rstudio
+browseVignettes("stringr") ## This will open a list of documentation in your browser.
+vignette(package = "stringr") ## This will open a new tab and tell you what documents you have on your device
+vignette(package = "stringr",topic = "regular-expressions") ## To view documentation of specific topic
+
+## Another example
+vignette(package = "ggsci",topic = "ggsci")
+vignette(package = "ggsci",topic = "ggsci-faq")
+
+## Packages that do not have documentation
+vignette(package = "ggvenn")
+## User might also provide alternate way of documentation such as in form of markdown README files: https://github.com/yanlinlin82/ggvenn
+
+## If you wish to view a list of all functions present in a package
+help(package = "ggvenn")
+```
+
+## Loading the R packages
+
+User can use `library` function to load packages one at a time based on their needs as they build their code. However, in some cases, we have prior knowledge about what we are gonna do in R (like here we wish to study data visualization). And so we know which packages we wish to use. To load all of them quickly we will use another call `lapply`. This sweet little function let you apply other functions in R on a list of things or collection of things (here those things are packages). We can ask `lapply` to use `library` function and load all the libraries, if we provide it a collection of package names. We collect these names using `c()` function
+```{r}
+## Loading one package at a time is boring
+library(ggpubr)
+library(ggsci)
+
+## Let's load all of them at once.
+my_packages <- c('dplyr',"BiocManager",'stringr','pacman','tidyr','ggplot2','R3port','ggpubr','plotly','data.table','argparse','ggsci','htmlwidgets','egg','remotes','ggplot2',"ggvenn","ggVennDiagram","grafify","esquisse","ggeasy","ggtree","easyPlot","ggplotgui","ganttrify","ddplot","inspectdf","hrbrthemes","esquisse") ## a character vector of names of packages
+lapply(my_packages, library, character.only = TRUE) #lapply is a function in R that apply a given function (here library) to the list/character vector (here my_packages)
+```
+
+## Loading data in R
+
+Users get data in all different formats such as a CSV file, excel file or TSV file. To make plots in R users must know how to load them in Rstudio. There are multiple ways to do that. Users can use interactive way or other specialized libraries. For simplicity, we will show the GUI method.
+
+```{r}
+library(inspectdf)
+library(readxl)
+sample1 <- read_excel("~/data/sample1.xlsx", 
+    sheet = "sheet1")
+# View(sample1)
+inspect_types(sample1)
+glimpse(sample2)
+
+## This 
+inspect_types(sample1)  %>% show_plot()
+
+## and this are same. We use %>% from dplyr package to direct the outout of one function into the other
+temp <- inspect_types(sample1)
+show_plot(temp)
+
+inspect_na(sample1) %>% show_plot() ## Check empty cells in a table and if anything is missing
+inspect_cat(sample1) %>% show_plot() ## Check categorical columns proportion
+inspect_cor(sample1) %>% show_plot() ## Check correlation between multiple numeric columns
+```
+
+## Using esquisse
+
+In this section we will start with how to visualize the Volcano plot in Rstudio quickly using `esquisse`. We will load the data and then transform the `padj` column, color the DEGs and then copy the code. Use `cluster` column to show violin plots and box plots examples. For vignettes, click [here](https://cran.r-project.org/web/packages/esquisse/vignettes/get-started.html)
+```{r}
+library(readr)
+sample2 <- read_csv("~/data/sample2.csv")
+#View(sample2)
+
+#esquisse::esquisser()
+```
+
+## Using easyPlot
+
+Similar to esquisse but have limited options. Can only make scatter plots, boxplots, bargraphs and histograms. Good to get some preliminary code when starting to learn how to use the ggplot2 R package and its function. If you are lazy, you can also upload the data on their portal [here](https://easyplot.michalmajka.com/).
+
+
+```{r}
+library(easyPlot)
+
+#easyPlot::easyPlot()
+```
+
+
+## Using ggpubr and ggeasy
+Make publication ready plots using ggpubr wrapper functions. Wrapper functions are functions that are written over a previous function that was otherwise difficult to use (could be due to multiple reasons such as too many parameters required from user end, or requires user to have expertise in R). 
+
+>For demonstration here, we will use tooth growth data. The data is from an experiment examining how vitamin C dosage delivered in 2 different methods predicts tooth growth in guinea pigs.
+
+The data consist of 60 observations, representing 60 guinea pigs, and 3 variables:
+
+- len : numeric, tooth (odontoblast, actually) length
+- supp : factor, supplement type, 2 levels, VC'' is ascorbic acid, and OJ’’ is orange juice
+- dose : numeric, dose (mg/day)
+```{r}
+library(ggpubr)
+data("ToothGrowth")
+inspect_types(ToothGrowth) %>% show_plot()
+#View(ToothGrowth)
+
+## Make density plots
+a<-ggdensity(ToothGrowth, x = "len",
+            add = "mean", rug = TRUE,
+            color = "supp", fill = "supp",
+            palette = c("#00AFBB", "#E7B800"))
+
+## Making boxplots and comparing difference in their distribution if significant or not
+b<-ggboxplot(ToothGrowth, x = "dose", y = "len",
+                color = "dose", palette =c("#00AFBB", "#E7B800", "#FC4E07"),
+                add = "jitter", shape = "dose")+stat_compare_means()
+
+## Calculating significance test between selected groups. Also how to manipulate the x-axis 
+ my_comparisons <- list( c("0.5", "1"), c("0.5", "2") )
+c<- ggboxplot(ToothGrowth, x = "dose", y = "len",
+                color = "dose", palette =c("#00AFBB", "#E7B800", "#FC4E07"),
+                add = "jitter", shape = "dose")+stat_compare_means(comparisons = my_comparisons,label = "p.signif")+ggeasy::easy_rotate_x_labels()
+ 
+## quick violin plots. Convert above code to make violin plots
+d<- ggviolin(ToothGrowth, x = "dose", y = "len",
+          color = "dose", palette =c("#00AFBB", "#E7B800", "#FC4E07"),fill="dose",
+          add = "boxplot", shape = "dose", add.params = list(fill = "white"))+stat_compare_means(comparisons = my_comparisons,label = "p.signif")+ggeasy::easy_rotate_x_labels()
+
+## positioning of the p value on the graph
+ggviolin(ToothGrowth, x = "supp", y = "len",
+        palette =c("#00AFBB", "#E7B800", "#FC4E07"),fill="supp",
+          add = "boxplot", shape = "dose", add.params = list(fill = "white"))+stat_compare_means(paired = TRUE,label.x.npc = "center",label.y = 40)+ggeasy::easy_rotate_x_labels()
+
+## Introdicing the facets
+
+## positioning of the p value on the graph
+ggviolin(ToothGrowth, x = "supp", y = "len",
+        palette =c("#00AFBB", "#E7B800", "#FC4E07"),fill="supp", facet.by = "dose",
+          add = "boxplot", shape = "dose", add.params = list(fill = "white"))+stat_compare_means(paired = TRUE,label.x = 1,label.y = 40)+ggeasy::easy_rotate_x_labels()
+
+
+## performing paired T-test 
+ ggpaired(ToothGrowth, x = "supp", y = "len",
+         color = "supp", line.color = "gray", line.size = 0.4,
+         palette = c("#00AFBB", "#E7B800", "#FC4E07"))+
+    stat_compare_means(paired = TRUE)
+
+## Combine multiple figures into one plot
+#cowplot::plot_grid(plotlist = list(a,b,c,d))
+# comb<-ggpubr::ggarrange(a,b,c,d,labels = LETTERS)
+```
+
+## Making Venn Diagram
+
+Sheet 1 and Sheet 2 contains the differentially expressed genes from two time points. We wish to check the overlap between the two. Let's see how we can achieve this using `ggvenn` and `ggVennDiagram` package. For vignette of ggVennDiagram, look [here](https://gaospecial.github.io/ggVennDiagram/articles/using-ggVennDiagram.html). For advance venn diagrams, refer to `venndir` [here](https://jmw86069.github.io/venndir/index.html) or read the book chapter [here](https://venn.bio-spring.top/intro#nvennr)
+```{r}
+library(readxl)
+library(ggvenn)
+library(ggVennDiagram)
+sample1.s1 <- read_excel("~/data/sample1.xlsx", 
+    sheet = "sheet1")
+
+sample1.s2 <- read_excel("~/data/sample1.xlsx", 
+    sheet = "sheet2")
+
+## Checking overlap between upregulated genes in sheet 1 and sheet 2
+s1<-subset(sample1.s1, regulate == "Up")$Geneid
+s2<-subset(sample1.s2, regulate == "Up")$Geneid
+
+ggvenn(list("30hpi"=s1,"40hpi"=s2),auto_scale = TRUE) ## See that though s2 has 9 elements, but the venn diagram has 7. That means there was one duplicate and that is removed.
+ggvenn(list("30hpi"=c("gene1","gene2"),"40hpi"=c("gene1","gene2","gene3","gene4","gene5")),auto_scale = T) ## Save this and show how the user can make changes in the plot in power point
+ggvenn(list("30hpi"=c("gene1","gene2"),"40hpi"=c("gene1","gene2","gene3","gene4","gene5")),auto_scale = T,label_sep = "\n",show_elements = T)
+ggVennDiagram(list("30hpi"=s1,"40hpi"=s2), set_color = c("blue","red"))
+ggVennDiagram(list("30hpi"=s1,"40hpi"=s2),force_upset = TRUE)
+```
+
+## Pie charts and interactive Bar race charts
+
+```{r}
+
+library(ddplot)
+denv<-read.csv("dengue_cases_combined.csv")
+inspectdf::inspect_types(denv)
+year2015<-subset(denv, Year == 2015 & Dengue.fever >0)
+pieChart(year2015,value = "Dengue.fever",label = "Region",colorCategory = "Tableau10",)
+pieChart(year2015,value = "Dengue.fever",label = "Region",
+         colorCategory = "Tableau10",padRadius = 200,
+  padAngle = 0.1,
+  cornerRadius = 30,
+  innerRadius = 10)
+
+ barChartRace(denv,
+    x = "Dengue.fever",
+    y = "Region",
+    time = "Year",
+    ytitle = "Region in SA", 
+    xtitle = "No. of Dengue Incidences",
+    title = "Bar chart race of cities in SA reporting DENV cases"
+  )
+```
+
+## Make bar charts wih error bars
+
+```{r}
+library(grafify)
+library(hrbrthemes)
+
+sample3 <- read.csv("sample3.csv")
+sample3 <- reshape2::melt(sample3)
+colnames(sample3) <- c("Group","Cycle","perc_parasitemia")
+plot_scatterbar_sd(data = sample3, #data table
+                   xcol = Group,      #X variable
+                   ycol = perc_parasitemia,  facet = Cycle ,       #Y variable
+                   fontsize = 15)+ggeasy::easy_remove_legend()+xlab("Cycle")+ylab("% Parasitemia")
+
+plot_point_sd(data = sample3, #data table
+                   xcol = Group,      #X variable
+                   ycol = perc_parasitemia,      facet = Cycle ,    #Y variable
+                   fontsize = 15)+ggeasy::easy_remove_legend()+xlab("Cycle")+ylab("% Parasitemia")
+## Show minimal use of themes users can use from hbrthemes package
+#+theme_ft_rc()
+#+theme_ipsum_rc(grid="Y")
+```
+
+## Merging the tables
+
+
+```{r}
+
+```
