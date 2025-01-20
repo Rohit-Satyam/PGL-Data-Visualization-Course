@@ -23,6 +23,7 @@ remotes::install_github("giocomai/ganttrify")
 remotes::install_github("feddelegrand7/ddplot")
 devtools::install_github("alastairrushworth/inspectdf")
 remotes::install_gitlab("hrbrmstr/hrbrthemes")
+BiocManager::install("ideal")
 ```
 
 # Data Visualisation Shortcuts (By Rohit Satyam)
