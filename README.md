@@ -56,7 +56,7 @@ We will then discuss some easy to use R package that have been build upon ggplot
 - inspectdf: https://alastairrushworth.com/inspectdf/
 
 We will also discuss briefly about markdown and Rmarkdown format.
->Note for gantt chart the example data is present [here](https://docs.google.com/spreadsheets/d/1A_sRyEks7z1DjQW1G6dCIrSgX7U9mZ4sOxcl--iVLFE/edit?usp=sharing)
+>Note for gantt chart the example data is present [here](https://docs.google.com/spreadsheets/d/1A_sRyEks7z1DjQW1G6dCIrSgX7U9mZ4sOxcl--iVLFE/edit?usp=sharing) and instead of using R package we will use it's web interface [here](https://ganttrify.europeandatajournalism.eu/)
 
 ### C. Creating Scientific Diagrams using Bioicons:
 Here we will discuss the resources you can use to make scientific diagrams when you are deprieved of platforms such as Biorender. This will be a theoretical presentation on the following sources. With few examples, we will show you hot to perform SVG file manipulation as well and different kind of image formats you should use.
