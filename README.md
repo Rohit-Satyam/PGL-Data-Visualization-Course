@@ -55,9 +55,11 @@ We will then discuss some easy to use R package that have been build upon ggplot
 - S4Vector merge function to merge dataframe in R: https://bioconductor.org/packages/release/bioc/vignettes/S4Vectors/inst/doc/S4VectorsOverview.html
 - inspectdf: https://alastairrushworth.com/inspectdf/
 
-We will also discuss briefly about markdown and Rmarkdown format.
->Note for gantt chart the example data is present [here](https://docs.google.com/spreadsheets/d/1A_sRyEks7z1DjQW1G6dCIrSgX7U9mZ4sOxcl--iVLFE/edit?usp=sharing) and instead of using R package we will use it's web interface [here](https://ganttrify.europeandatajournalism.eu/)
+> Not yet tired? Meet the gg joint family [here](https://exts.ggplot2.tidyverse.org/gallery/)
 
+>Note for gantt chart the example data is present [here](https://docs.google.com/spreadsheets/d/1A_sRyEks7z1DjQW1G6dCIrSgX7U9mZ4sOxcl--iVLFE/edit?usp=sharing) and instead of using R package we will use it's web interface [here](https://ganttrify.europeandatajournalism.eu/) We will also discuss briefly about markdown and Rmarkdown format if time allows.
+
+> If you want to know more about the Do's and Dont's of Visualization, go to this website and see [blogs](https://coolinfographics.com/dataviz-guides)
 ### C. Creating Scientific Diagrams using Bioicons:
 Here we will discuss the resources you can use to make scientific diagrams when you are deprieved of platforms such as Biorender. This will be a theoretical presentation on the following sources. With few examples, we will show you hot to perform SVG file manipulation as well and different kind of image formats you should use.
 
