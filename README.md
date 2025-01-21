@@ -26,6 +26,8 @@ remotes::install_gitlab("hrbrmstr/hrbrthemes")
 BiocManager::install("ideal")
 ```
 
+>Note: If you are a MAC OS user, kindly install [Xquartz](https://www.xquartz.org/) and xcode-select --install for the above packages to be installed correctly.
+
 # Data Visualisation Shortcuts (By Rohit Satyam)
 ### A. Daily purpose Graphs using Online services
 In this section, we will discuss about some online servers given below and understand different chart types and decision on which we should use on which kind of data. We will also discuss about the Rstudio, its features and plugins at the end.
