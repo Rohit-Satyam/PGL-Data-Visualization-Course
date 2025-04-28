@@ -88,6 +88,7 @@ VIZBI: https://vizbi.org/About
 MasterClass: https://visualisingdata.com/
 https://ccsb.scripps.edu/cellpaint/
 https://github.com/poncest/SWDchallenge
+[Make Pretty Tables in R](https://rfortherestofus.com/2019/11/how-to-make-beautiful-tables-in-r)
 
 # Plot Manipulation in Adobe Illustrator (By Amit K Subudhi)
 
